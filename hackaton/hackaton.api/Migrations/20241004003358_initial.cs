@@ -1,15 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace hackaton.api.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Hackatons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Topic = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Organizer = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hackatons", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Mentors",
                 columns: table => new
@@ -25,17 +43,44 @@ namespace hackaton.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rewards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    HackatonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rewards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rewards_Hackatons_HackatonId",
+                        column: x => x.HackatonId,
+                        principalTable: "Hackatons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    NumberMembers = table.Column<int>(type: "int", nullable: false)
+                    NumberMembers = table.Column<int>(type: "int", nullable: false),
+                    HackatonId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Hackatons_HackatonId",
+                        column: x => x.HackatonId,
+                        principalTable: "Hackatons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,6 +109,16 @@ namespace hackaton.api.Migrations
                 name: "IX_Participants_TeamId",
                 table: "Participants",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rewards_HackatonId",
+                table: "Rewards",
+                column: "HackatonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_HackatonId",
+                table: "Teams",
+                column: "HackatonId");
         }
 
         /// <inheritdoc />
@@ -76,7 +131,13 @@ namespace hackaton.api.Migrations
                 name: "Participants");
 
             migrationBuilder.DropTable(
+                name: "Rewards");
+
+            migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "Hackatons");
         }
     }
 }

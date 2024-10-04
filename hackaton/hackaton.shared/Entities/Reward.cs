@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace hackaton.shared.Entities
 {
-    public class Team
+    public class Reward
     {
         public int Id { get; set; }
-        [MaxLength(70, ErrorMessage = "El nombre maximo puede contener 70 caracteres")]
+
+        [MaxLength(70, ErrorMessage = "La descripción maximo puede contener 100 caracteres")]
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public int NumberMembers { get; set; }
-        [Required]
-        public ICollection<Participant> Participants { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public Hackaton Hackaton { get; set; }
