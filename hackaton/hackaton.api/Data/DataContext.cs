@@ -19,5 +19,7 @@ namespace hackaton.api.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Hackaton> Hackatons { get; set; }
         public DbSet<Reward> Rewards { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
     }
 }

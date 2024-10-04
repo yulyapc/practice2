@@ -10,16 +10,22 @@ namespace hackaton.shared.Entities
     public class Participant
     {
         public int Id { get; set; }
+
+        [Display(Name = "Nombre participante")]
         [MaxLength(70, ErrorMessage = "El nombre maximo puede contener 70 caracteres")]
         [Required]
         public string Name { get; set; }
+
+        [Display(Name = "Rol")]
         [MaxLength(30, ErrorMessage = "El rol maximo puede contener 30 caracteres")]
         [Required]
         public string Rol { get; set; }
+
+        [Display(Name = "Experiencia")]
         [MaxLength(30, ErrorMessage = "La experiencia maximo puede contener 30 caracteres")]
         [Required]
         public string Experience { get; set; }
-        [Required]
+
         public Team Team { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace hackaton.shared.Entities
     public class Hackaton
     {
         public int Id { get; set; }
-        
+        [Display(Name = "Nombre hackaton")]
         [MaxLength(70, ErrorMessage = "El nombre maximo puede contener 70 caracteres")]
         [Required]
         public string Name { get; set; }
@@ -25,18 +25,18 @@ namespace hackaton.shared.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
+        [Display(Name = "Tema hackaton")]
         [MaxLength(70, ErrorMessage = "El tema maximo puede contener 70 caracteres")]
         [Required]
         public string Topic { get; set; }
 
+        [Display(Name = "Organizador hackaton")]
         [MaxLength(70, ErrorMessage = "El organizador maximo puede contener 70 caracteres")]
         [Required]
         public string Organizer { get; set; }
 
-        [Required]
         public ICollection<Team> Teams { get; set; }
 
-        [Required]
         public ICollection<Reward> Rewards { get; set; }
     }
 }

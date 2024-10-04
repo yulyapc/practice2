@@ -11,11 +11,16 @@ namespace hackaton.shared.Entities
     {
         public int Id { get; set; }
 
+        [Display(Name = "Nombre mentor")]
         [MaxLength(70, ErrorMessage = "El nombre maximo puede contener 70 caracteres")]
         [Required]
         public string Name { get; set; }
+
+        [Display(Name = "Experiencia")]
         [MaxLength(30, ErrorMessage = "La experiencia maximo puede contener 30 caracteres")]
         [Required]
         public string Experience { get; set; }
+
+        public ICollection<Evaluation> Evaluations { get; set; }
     }
 }

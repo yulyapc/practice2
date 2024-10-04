@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hackaton.api.Data;
 
@@ -11,9 +12,11 @@ using hackaton.api.Data;
 namespace hackaton.api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241004133114_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +233,7 @@ namespace hackaton.api.Migrations
             modelBuilder.Entity("hackaton.shared.Entities.Evaluation", b =>
                 {
                     b.HasOne("hackaton.shared.Entities.Mentor", "Mentor")
-                        .WithMany("Evaluations")
+                        .WithMany()
                         .HasForeignKey("MentorId");
 
                     b.HasOne("hackaton.shared.Entities.Project", "Project")
@@ -283,11 +286,6 @@ namespace hackaton.api.Migrations
                     b.Navigation("Rewards");
 
                     b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("hackaton.shared.Entities.Mentor", b =>
-                {
-                    b.Navigation("Evaluations");
                 });
 
             modelBuilder.Entity("hackaton.shared.Entities.Team", b =>

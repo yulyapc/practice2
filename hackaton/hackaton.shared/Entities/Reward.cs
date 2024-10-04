@@ -11,11 +11,11 @@ namespace hackaton.shared.Entities
     {
         public int Id { get; set; }
 
+        [Display(Name = "Descripción premio")]
         [MaxLength(70, ErrorMessage = "La descripción maximo puede contener 100 caracteres")]
         [Required]
         public string Description { get; set; }
 
-        [Required]
         public Hackaton Hackaton { get; set; }
     }
 }
